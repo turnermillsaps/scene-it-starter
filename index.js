@@ -1,6 +1,5 @@
 /*
     Current Issues:
-    - saveToWatchlist() is undefined
 */
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -13,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         <div class="card-body">
                             <h4 class="card-title">${currentMovie.Title}</h4>
                             <div class="movie-year">${currentMovie.Year}</div>
-                            <a href="#" class="btn btn-primary" onclick="saveToWatchlist(${currentMovie.imdbID})">Add</a>
+                            <a href="#" class="btn btn-primary" onclick="saveToWatchlist('${currentMovie.imdbID}')">Add</a>
                         </div>
                     </div>
             `
@@ -28,21 +27,21 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById('movies-container').innerHTML = renderMovies(movieData);
     })
 
-    function saveToWatchlist(imdbID) {
-        var movie = movie.Data.find(function(currentMovie){
-            return currentMovie.imdbID == imdbID;
-        });
-
-        var watchlistJSON = localStorage.getItem('watchlist');
-        var watchlist = JSON.parse(watchlistJSON);
-
-        if (watchlist == null) {
-            watchlist = [];
-        }
-
-        watchlist.push(movie);
-        watchlistJSON = JSON.stringify(watchlist);
-        localStorage.setItem('watchlist', watchlistJSON);
-    }
 })
 
+function saveToWatchlist(imdbID) {
+    var movie = movieData.find(function(currentMovie){
+        return currentMovie.imdbID == imdbID;
+    });
+
+    var watchlistJSON = localStorage.getItem('watchlist');
+    var watchlist = JSON.parse(watchlistJSON);
+
+    if (watchlist == null) {
+        watchlist = [];
+    }
+
+    watchlist.push(movie);
+    watchlistJSON = JSON.stringify(watchlist);
+    localStorage.setItem('watchlist', watchlistJSON);
+}
