@@ -1,12 +1,6 @@
 /*
-    	{
-		Title: "The Dark Knight",
-		Year: "2008",
-		imdbID: "tt0468569",
-		Type: "movie",
-		Poster:
-			"https://images-na.ssl-images-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg"
-	    },
+    Current Issues:
+    - saveToWatchlist() is undefined
 */
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -33,5 +27,22 @@ document.addEventListener('DOMContentLoaded', function(){
         e.preventDefault();
         document.getElementById('movies-container').innerHTML = renderMovies(movieData);
     })
+
+    function saveToWatchlist(imdbID) {
+        var movie = movie.Data.find(function(currentMovie){
+            return currentMovie.imdbID == imdbID;
+        });
+
+        var watchlistJSON = localStorage.getItem('watchlist');
+        var watchlist = JSON.parse(watchlistJSON);
+
+        if (watchlist == null) {
+            watchlist = [];
+        }
+
+        watchlist.push(movie);
+        watchlistJSON = JSON.stringify(watchlist);
+        localStorage.setItem('watchlist', watchlistJSON);
+    }
 })
 
