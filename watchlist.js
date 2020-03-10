@@ -1,6 +1,5 @@
 /*
     Current Issues:
-    - watchlistArr.map is getting an error saying .map is not a function
 
     OMDB API:
     - Append to all API requests
@@ -10,7 +9,7 @@
 // Render watchlist from localStorage to page
 
 document.addEventListener('DOMContentLoaded', function(){
-    var watchlist = localStorage.getItem('watchlist');
+    var watchlist = JSON.parse(localStorage.getItem('watchlist'));
     // console.log(watchlistArr);
     function renderMovies(watchlistArr) {
         var watchlistHTML = watchlistArr.map(function(currentMovie){

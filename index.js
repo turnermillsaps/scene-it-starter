@@ -6,6 +6,7 @@
         http://www.omdbapi.com/?i=tt3896198&apikey=6ab2e908
 */
 
+var responseData;
 document.addEventListener('DOMContentLoaded', function(){
     var movieHTML = [];
     function renderMovies(movieArray) {
@@ -33,7 +34,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
         axios.get("http://www.omdbapi.com/?i=tt3896198&apikey=6ab2e908&s=" + urlEncodedSearchString)
             .then(function(response){
-                document.getElementById('movies-container').innerHTML = renderMovies(response.data.Search)
+                responseData = response.data.Search;
+                document.getElementById('movies-container').innerHTML = renderMovies(response.data.Search); 
                 console.log(response.data);
             });
 
@@ -43,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function(){
 })
 
 function saveToWatchlist(imdbID) {
-    var movie = movieData.find(function(currentMovie){
+    var movie = responseData.find(function(currentMovie){
         return currentMovie.imdbID == imdbID;
     });
 
