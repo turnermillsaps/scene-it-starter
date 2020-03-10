@@ -1,3 +1,12 @@
+/*
+    Current Issues:
+    - watchlistHTML seems to be empty everytime it is run
+    
+    OMDB API:
+    - Append to all API requests
+        http://www.omdbapi.com/?i=tt3896198&apikey=6ab2e908
+*/
+
 // Render watchlist from localStorage to page
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -12,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function(){
                     <div class="card-body">
                         <h4 class="card-title">${currentMovie.Title}</h4>
                         <div class="movie-year">${currentMovie.Year}</div>
-                        <a href="#" class="btn btn-primary" onclick="saveToWatchlist('${currentMovie.imdbID}')">Add</a>
                     </div>
                 </div>
             `

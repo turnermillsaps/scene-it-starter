@@ -1,5 +1,9 @@
 /*
     Current Issues:
+
+    OMDB API:
+    - Append to all API requests
+        http://www.omdbapi.com/?i=tt3896198&apikey=6ab2e908
 */
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -8,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function(){
         movieHTML = movieArray.map(function(currentMovie) {
             return `
                     <div class="movie card m-2">
-                        <img class="card-img-top" src="${currentMovie.Poster}" alt="Super Sick Image">
-                        <div class="card-body">
+                        <img class="card-img-top" style="width: 300px; height: 443px;" src="${currentMovie.Poster}" alt="Super Sick Image">
+                        <div class="card-body" style="width: 300px;">
                             <h4 class="card-title">${currentMovie.Title}</h4>
                             <div class="movie-year">${currentMovie.Year}</div>
                             <a href="#" class="btn btn-primary" onclick="saveToWatchlist('${currentMovie.imdbID}')">Add</a>
@@ -24,7 +28,16 @@ document.addEventListener('DOMContentLoaded', function(){
     // document.getElementById('movies-container').innerHTML = renderMovies(movieData);
     document.getElementById('search-form').addEventListener('submit', function(e){
         e.preventDefault();
-        document.getElementById('movies-container').innerHTML = renderMovies(movieData);
+        var searchString = document.getElementById('search-bar').value;
+        var urlEncodedSearchString = encodeURIComponent(searchString);
+
+        axios.get("http://www.omdbapi.com/?i=tt3896198&apikey=6ab2e908&s=" + urlEncodedSearchString)
+            .then(function(response){
+                document.getElementById('movies-container').innerHTML = renderMovies(response.data.Search)
+                console.log(response.data);
+            });
+
+        // document.getElementById('movies-container').innerHTML = renderMovies(movieData);
     })
 
 })
