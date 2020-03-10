@@ -2,7 +2,7 @@
     Current Issues:
 
     OMDB API:
-    - Append to all API requests
+    - Append to all API requests, limit 1000 calls per day
         http://www.omdbapi.com/?i=tt3896198&apikey=6ab2e908
 */
 
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         <div class="card-body" style="width: 300px;">
                             <h4 class="card-title">${currentMovie.Title}</h4>
                             <div class="movie-year">${currentMovie.Year}</div>
-                            <a href="#" class="btn btn-primary" onclick="saveToWatchlist('${currentMovie.imdbID}')">Add</a>
+                            <a class="btn btn-primary" id="${currentMovie.imdbID}" onclick="saveToWatchlist('${currentMovie.imdbID}')">Add</a>
                         </div>
                     </div>
             `
@@ -59,4 +59,5 @@ function saveToWatchlist(imdbID) {
     watchlist.push(movie);
     watchlistJSON = JSON.stringify(watchlist);
     localStorage.setItem('watchlist', watchlistJSON);
+    document.getElementById(`${imdbID}`).innerText = "Added..."
 }

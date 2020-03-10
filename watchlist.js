@@ -1,8 +1,11 @@
 /*
     Current Issues:
+        - Watched button does not render the page again, because renderMovies is only available in DOMContentLoaded
+        - Watched button does not work
+            - Does not remove movie from list
 
     OMDB API:
-    - Append to all API requests
+    - Append to all API requests, limit 1000 calls per day
         http://www.omdbapi.com/?i=tt3896198&apikey=6ab2e908
 */
 
@@ -19,12 +22,25 @@ document.addEventListener('DOMContentLoaded', function(){
                     <div class="card-body" style="width: 300px;">
                         <h4 class="card-title">${currentMovie.Title}</h4>
                         <div class="movie-year">${currentMovie.Year}</div>
+                        <a class="btn btn-secondary" onclick="removeFromWatchlist('${currentMovie.imdbID}')">Watched</a>
                     </div>
                 </div>
             `
         }) 
         return watchlistHTML.join('');
     }
-
     document.getElementById('movies-container').innerHTML = renderMovies(watchlist);
 })
+
+function removeFromWatchlist(imdbID) {
+    var responseData = JSON.parse(localStorage.getItem('watchlist'));
+    var movieIndex = responseData.findIndex(function(currentMovie){
+        return currentMovie.imdbID == imdbID;
+    });
+
+    var newMovieList = responseData.splice(movieIndex, 1);
+    console.log(newMovieList);
+    localStorage.clear();
+    localStorage.setItem('watchlist', JSON.stringify(newMovieList));
+    // document.getElementById('movies-container').innerHTML = renderMovies(watchlist);
+} 
