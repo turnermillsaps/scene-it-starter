@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     <div class="card-body" style="width: 300px;">
                         <h4 class="card-title">${currentMovie.Title}</h4>
                         <div class="movie-year">${currentMovie.Year}</div>
-                        <a class="btn btn-secondary" onclick="removeFromWatchlist('${currentMovie.imdbID}')">Watched</a>
+                        <a class="btn btn-secondary" id="${currentMovie.imdbID}" onclick="removeFromWatchlist('${currentMovie.imdbID}')">Watched</a>
                     </div>
                 </div>
             `
@@ -38,9 +38,10 @@ function removeFromWatchlist(imdbID) {
         return currentMovie.imdbID == imdbID;
     });
 
-    var newMovieList = responseData.splice(movieIndex, 1);
-    console.log(newMovieList);
+    responseData.splice(movieIndex, 1);
+    console.log(responseData);
     localStorage.clear();
-    localStorage.setItem('watchlist', JSON.stringify(newMovieList));
+    localStorage.setItem('watchlist', JSON.stringify(responseData));
+    document.getElementById(`${imdbID}`).innerText = "Removed..."
     // document.getElementById('movies-container').innerHTML = renderMovies(watchlist);
 } 
