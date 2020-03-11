@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('movies-container').innerHTML = renderMovies(watchlist);
 })
 
+// Function for deleting individual movies from the watchlist in localStorage
 function removeFromWatchlist(imdbID) {
     var responseData = JSON.parse(localStorage.getItem('watchlist'));
     var movieIndex = responseData.findIndex(function(currentMovie){
